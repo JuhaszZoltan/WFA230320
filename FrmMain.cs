@@ -21,24 +21,60 @@ namespace WFA230320
 
         private static Random rnd = new();
 
+        public int Score { get; set; } = 0;
+        public List<PictureBox> Targets { get; set; } = new();
+
         public FrmMain()
         {
             InitializeComponent();
-            tmrUpdate.Tick += OnUpdateTick;
+            tmrUpdate.Tick += OnTmrUpdateTick;
+            this.Load += OnFrmMainLoad;
         }
 
-        private void OnUpdateTick(object? sender, EventArgs e)
+        private void OnFrmMainLoad(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            tmrUpdate.Start();
         }
 
-        private PictureBox GetRandomTarget()
+        private void OnTmrUpdateTick(object? sender, EventArgs e)
         {
-
-
-
-            return new PictureBox();
+            if (rnd.Next(100) < 30)
+            {
+                var pb = GetNewRandomTarget();
+                pb.Click += OnTargetClick;
+                pnl.Controls.Add(pb);
+            }
         }
 
+        private void OnTargetClick(object? sender, EventArgs e)
+        {
+            lblScore.Text = $"Score: {++Score}";
+            (sender as PictureBox)!.Dispose();
+        }
+
+        private PictureBox GetNewRandomTarget()
+        {
+            int size = rnd.Next(10, 100);
+            int pX = rnd.Next(0, pnl.Width - size);
+            int pY = rnd.Next(0, pnl.Height - size);
+            Color color = Color.FromArgb(
+                red:   rnd.Next(0, 256),
+                blue:  rnd.Next(0, 256),
+                green: rnd.Next(0, 256));
+
+            return new PictureBox()
+            {
+                BackColor = color,
+                Bounds = new()
+                {
+                    X = pX,
+                    Y = pY,
+                    Height = size,
+                    Width = size,
+                },
+                //TODO: add img
+                Image = null,
+            };
+        }
     }
 }

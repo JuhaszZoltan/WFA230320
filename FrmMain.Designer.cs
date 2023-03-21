@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             tmrUpdate = new System.Windows.Forms.Timer(components);
             pnl = new Panel();
+            lblScore = new Label();
+            pnl.SuspendLayout();
             SuspendLayout();
             // 
             // tmrUpdate
@@ -40,11 +42,23 @@
             // pnl
             // 
             pnl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pnl.BackColor = Color.White;
+            pnl.BackColor = Color.RosyBrown;
+            pnl.Controls.Add(lblScore);
             pnl.Location = new Point(12, 12);
             pnl.Name = "pnl";
             pnl.Size = new Size(760, 537);
             pnl.TabIndex = 0;
+            // 
+            // lblScore
+            // 
+            lblScore.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblScore.AutoSize = true;
+            lblScore.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            lblScore.Location = new Point(598, 12);
+            lblScore.Name = "lblScore";
+            lblScore.Size = new Size(150, 37);
+            lblScore.TabIndex = 0;
+            lblScore.Text = "Score: ###";
             // 
             // FrmMain
             // 
@@ -54,6 +68,8 @@
             Controls.Add(pnl);
             Name = "FrmMain";
             Text = "Main Form";
+            pnl.ResumeLayout(false);
+            pnl.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -61,5 +77,6 @@
 
         private System.Windows.Forms.Timer tmrUpdate;
         private Panel pnl;
+        private Label lblScore;
     }
 }
